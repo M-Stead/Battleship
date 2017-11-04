@@ -7,7 +7,7 @@ This application allows users to do the following things:
 - The battleship board is 8 x 8 in dimension (See below):
 
 ||A|B|C|D|E|F|G|H|
-|-------------|||||||||
+|---|---|---|---|---|---|---|---|---|
 |1|||||||||
 |2|||||||||
 |3|||||||||
