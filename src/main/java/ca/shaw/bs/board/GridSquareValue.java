@@ -9,13 +9,13 @@ public enum GridSquareValue {
 	    HIT("X"),
 	    SUNK("X");
 	
-	    private String value;
+	private String value;
 	
 	GridSquareValue(String value){
 		this.value = value;
 	}
 	
-	public String value()
+	public String getValue()
 	{
 		return this.value;
 	}

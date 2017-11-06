@@ -2,8 +2,8 @@ package ca.shaw.bs.board;
 
 public class WaterSquare implements IGridSquare {
 
-	String gridValue = GridSquareValue.WATER.value();
-	
+	String gridValue = GridSquareValue.WATER.getValue();
+	boolean squareHit = false;
 	
 	@Override
 	public String getGridValue() {
@@ -12,8 +12,15 @@ public class WaterSquare implements IGridSquare {
 
 	@Override
 	public void targetSquare() {
-		// TODO Auto-generated method stub
-		
+		//if this square hasn't been targeted before then set it to a miss
+		if(!this.squareHit)
+		{
+			this.gridValue = GridSquareValue.MISS.getValue();
+			this.squareHit = true;
+		}
+		else
+		{
+			//Do nothing
+		}
 	}
-
 }

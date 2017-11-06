@@ -12,8 +12,6 @@ apply plugin: 'java'
 // Apply the application plugin to add support for building an application
 apply plugin: 'application'
 
-// Apply the application plugin to add support for building an application
-apply plugin: 'eclipse'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -26,6 +24,10 @@ jar {
     manifest {
         attributes 'Main-Class': 'ca.shaw.bs.game.BattleShip'
     }
+}
+
+plugins {
+id 'net.saliman.cobertura' version '2.5.1'
 }
 
 dependencies {

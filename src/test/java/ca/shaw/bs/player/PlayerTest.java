@@ -8,8 +8,11 @@ import org.junit.Test;
 
 public class PlayerTest {
 
+	Player player;
+	
 	@Before
 	public void setUp() throws Exception {
+		 player = new Player("Test");
 	}
 
 	@After
@@ -17,8 +20,16 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void placeShip() {
-		fail("Not yet implemented");
+	public void validAlignmentType_ValidAlignmentType() {
+		assertTrue(player.validAlignmentType("H"));
+		assertTrue(player.validAlignmentType("V"));
 	}
 
+	@Test
+	public void validAlignmentType_InValidAlignmentType() {
+		assertFalse(player.validAlignmentType("D"));
+		assertFalse(player.validAlignmentType("U"));
+	}
+
+	
 }
