@@ -36,25 +36,25 @@ public class BoardTest {
 	@Test
 	public void validateCoordinates_InRange_Horizontal_Placement()
 	{
-		assertEquals(true,testBoard.validateCoordinates("H",1,1));
+		assertEquals(true,testBoard.validatePlacementCoordinates("H",1,1));
 	}
 	
 	@Test
 	public void validateCoordinates_OutOfRange_Horizontal_Placement()
 	{
-		assertEquals(false,testBoard.validateCoordinates("H",6,1));
+		assertEquals(false,testBoard.validatePlacementCoordinates("H",6,1));
 	}
 	
 	@Test
 	public void validateCoordinates_OutOfRange_Vertical_Placement()
 	{
-		assertEquals(false,testBoard.validateCoordinates("V",1,6));
+		assertEquals(false,testBoard.validatePlacementCoordinates("V",1,6));
 	}
 	
 	@Test
 	public void validateCoordinates_InRange_Vertical_Placement()
 	{
-		assertEquals(true,testBoard.validateCoordinates("V",1,4));
+		assertEquals(true,testBoard.validatePlacementCoordinates("V",1,4));
 	}
 	
 	@Test

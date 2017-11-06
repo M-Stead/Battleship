@@ -23,7 +23,6 @@ public class Board {
 	
 	public void printBoard()
 	{
-		System.out.println("Length of enum " + BoardLetters.values().length);
 		for(BoardLetters letter: BoardLetters.values())
 		{
 			System.out.print("   " + letter.name() );
@@ -45,7 +44,7 @@ public class Board {
 		int xCoordinate = BoardLetters.valueOf(column).getValue();
 		int yCoordinate = Integer.parseInt(row);
 		//Assess coordinates (Are they valid)? 
-		if(validateCoordinates(alignment, xCoordinate, yCoordinate))
+		if(validatePlacementCoordinates(alignment, xCoordinate, yCoordinate))
 		{
 		
 			//Once validated place ship
@@ -61,7 +60,7 @@ public class Board {
 			}
 			else
 			{
-				//Invalid?
+				//Invalid
 			}
 		}
 		else
@@ -71,7 +70,7 @@ public class Board {
 		
 	}
 	
-	public boolean validateCoordinates(String alignment, int xCoord, int yCoord)
+	public boolean validatePlacementCoordinates(String alignment, int xCoord, int yCoord)
 	{
 		boolean result = false;
 		if(alignment.equals(AlignmentType.HORIZONTAL.getValue()))

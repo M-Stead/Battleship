@@ -10,6 +10,7 @@ public class Player {
 	private String id; 
 	private Board board;
 	private Scanner scanner;
+	private int hitsLeft;
 	
 	public Player(String id) {
 		this.id = id;
@@ -28,7 +29,8 @@ public class Player {
 		boolean validAlignment = false;
 		String column = "";
 		String row = "";
-		System.out.println("%n Player " + this.id + "- Please place your ships %n");
+		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println("Player " + this.id + "- Please place your ships ");
 		//Prompt User for valid alignment input
 
 		while(!validAlignment)
@@ -36,22 +38,28 @@ public class Player {
 			//Prompt user for command line input
 			System.out.println("Please enter how you would like to align your ship: Vertical (V), Horizontal (H)");
 			alignment = this.scanner.nextLine();
-			
 			validAlignment = validAlignmentType(alignment);
 		}
-		
+		System.out.println("-----------------------------------------------------------------------------------");
 		System.out.println("Please enter coordinate for your ship to be placed: <Letter (Column)>  <Number (Row)> ");
 		
-		while(this.scanner.hasNext())
-		{
-			 column = this.scanner.next();
-			 row = this.scanner.next();
-			
-		}
-		
+	    column = this.scanner.next();
+		row = this.scanner.next();
+					
 		board.placeShipsOnBoard(alignment, column, row);
+		board.printBoard();
 	}
 	
+	public void attack()
+	{
+		System.out.println("");
+		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println("");
+		board.printBoard();
+		//Prompt user for attack coordinates
+		System.out.println("Please enter your attack coordinates Player " + this.id);
+
+	}
 	
 	public boolean validAlignmentType(String align)
 	{
