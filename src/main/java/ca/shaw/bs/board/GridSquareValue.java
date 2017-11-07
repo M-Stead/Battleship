@@ -3,7 +3,8 @@ package ca.shaw.bs.board;
 public enum GridSquareValue {
 
 	
-	    WATER("~"),
+	    INVALID("I"),
+		WATER("~"),
 	    BOAT("B"),
 	    MISS("O"),
 	    HIT("X"),

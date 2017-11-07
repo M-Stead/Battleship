@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -62,9 +63,9 @@ public class BoardTest {
 	{
 		testBoard.placeShipsOnBoard("V", "A", "2");
 		IGridSquare[][] board = testBoard.getBoard();
-		assertThat (board[0][2], instanceOf(ShipSquare.class));
-		assertThat (board[1][2], instanceOf(ShipSquare.class));
-		assertThat (board[2][2], instanceOf(ShipSquare.class));
+		assertThat (board[0][2], instanceOf(WaterSquare.class));
+		assertThat (board[1][2], instanceOf(WaterSquare.class));
+		assertThat (board[2][2], instanceOf(WaterSquare.class));
 		assertThat (board[0][5], instanceOf(WaterSquare.class));
 		assertThat (board[1][4], instanceOf(WaterSquare.class));
 	}
@@ -76,41 +77,49 @@ public class BoardTest {
 		IGridSquare[][] board = testBoard.getBoard();
 		assertThat (board[0][2], instanceOf(ShipSquare.class));
 		assertThat (board[0][3], instanceOf(ShipSquare.class));
-		assertThat (board[0][4], instanceOf(ShipSquare.class));
+		assertThat (board[0][4], instanceOf(WaterSquare.class));
 		assertThat (board[0][5], instanceOf(WaterSquare.class));
 		assertThat (board[1][4], instanceOf(WaterSquare.class));
 	}
 	
 	@Test
-	public void placeShipsOnBoard_OutOfRange_Vertical_Placement()
+	public void placeShipsOnBoard_OutOfRange_Vertical_Placement() throws UnsupportedEncodingException
 	{
 		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	    System.setOut(new PrintStream(outContent));
+		System.setOut(new PrintStream(outContent, true, "UTF8"));
 		
 	    testBoard.placeShipsOnBoard("V", "H", "7");
 	    
 	    String expectedOutput  = "Invalid Coordinates passed in for ship placement. Ship not placed\n"; 
-	    assertEquals(expectedOutput, outContent.toString());
+	    assertEquals(expectedOutput, outContent.toString("UTF8"));
 	  
 	}
 	
 	@Test
-	public void placeShipsOnBoard_OutOfRange_Horizontal_Placement()
+	public void placeShipsOnBoard_OutOfRange_Horizontal_Placement() throws UnsupportedEncodingException
 	{
 		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	    System.setOut(new PrintStream(outContent));
+	    System.setOut(new PrintStream(outContent, true, "UTF8"));
 		
 	    testBoard.placeShipsOnBoard("H", "H", "7");
 	    
 	    String expectedOutput  = "Invalid Coordinates passed in for ship placement. Ship not placed\n"; 
-	    assertEquals(expectedOutput, outContent.toString());
+	    assertEquals(expectedOutput, outContent.toString("UTF8"));
 	}
 	
 	@Test
-	public void pStuff()
+	public void validateShootingCoordinate_ValidCoordinate()
 	{
-		//testBoard.placeShipsOnBoard("V", "G", "4");
-		//testBoard.printBoard();
+		assertTrue (this.testBoard.validateShootingCoordinate(0,0));
+	}
+
+	@Test
+	public void validateShootingCoordinate_inValidCoordinate()
+	{
+		assertFalse (this.testBoard.validateShootingCoordinate(-1,0));
 	}
 	
+	@Test void shootAtBoard_NotShotAtBefore() {
+		this.testBoard.shootAtBoard("1", "A");
+	}
 }

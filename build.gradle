@@ -12,6 +12,10 @@ apply plugin: 'java'
 // Apply the application plugin to add support for building an application
 apply plugin: 'application'
 
+// Apply plugin for code quality analysis and test coverage
+apply plugin: 'findbugs'
+apply plugin: 'jacoco'
+
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -26,8 +30,42 @@ jar {
     }
 }
 
-plugins {
-id 'net.saliman.cobertura' version '2.5.1'
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+test {
+    jacoco {
+        append = false
+    }
+    
+    jacocoTestReport {
+    group = "Reporting"
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination = file("${buildDir}/reports/coverage")
+    }
+}
+    
+}
+
+
+jacocoTestReport {
+    group = "Reporting"
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination = file("${buildDir}/reports/coverage")
+    }
 }
 
 dependencies {
@@ -38,9 +76,13 @@ dependencies {
     testCompile 'junit:junit:4.12'
     
     //Use Mockito
-    testCompile 'org.mockito:mockito-core:2.11.6'
+    testCompile 'org.mockito:mockito-core:2.11.0'
+}
+
+run{
+    standardInput = System.in
 }
 
 // Define the main class for the application
-mainClassName = 'BattleShip'
+mainClassName = 'ca.shaw.bs.game.BattleShip'
 

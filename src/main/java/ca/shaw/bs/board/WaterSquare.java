@@ -2,13 +2,26 @@ package ca.shaw.bs.board;
 
 public class WaterSquare implements IGridSquare {
 
-	String gridValue = GridSquareValue.WATER.getValue();
-	boolean squareHit = false;
+	private String gridValue = GridSquareValue.WATER.getValue();
+	private boolean squareHit = false;
+	private String gridResult = GridSquareValue.WATER.name();
 	
 	@Override
 	public String getGridValue() {
 		return this.gridValue;
 	}
+	
+	@Override
+	public String getGridResult() {
+		return this.gridResult;
+	}
+	
+	@Override
+	public boolean getSquareHit() {
+		
+		return this.squareHit;
+	}
+
 
 	@Override
 	public void targetSquare() {
@@ -17,10 +30,11 @@ public class WaterSquare implements IGridSquare {
 		{
 			this.gridValue = GridSquareValue.MISS.getValue();
 			this.squareHit = true;
+			this.gridResult = GridSquareValue.MISS.name();
 		}
 		else
 		{
-			//Do nothing
+			System.out.println("Square has already been targeted");
 		}
 	}
 }

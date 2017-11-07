@@ -2,12 +2,24 @@ package ca.shaw.bs.board;
 
 public class ShipSquare implements IGridSquare {
 
-	String gridValue = GridSquareValue.BOAT.getValue();
-	boolean squareHit = false;
+	private String gridValue = GridSquareValue.BOAT.getValue();
+	private boolean squareHit = false;
+	private String gridResult = GridSquareValue.MISS.name();
 	
 	@Override
 	public String getGridValue() {
 		return this.gridValue;
+	}
+	
+	@Override
+	public String getGridResult(){
+		return this.gridResult;
+	}
+	
+	@Override
+	public boolean getSquareHit() {
+		
+		return this.squareHit;
 	}
 
 	@Override
@@ -16,11 +28,13 @@ public class ShipSquare implements IGridSquare {
 		if(!squareHit)
 		{
 			this.gridValue = GridSquareValue.HIT.getValue();
+			this.gridResult = GridSquareValue.HIT.name();
 			this.squareHit = true;
 		}
 		else
 		{
-			//Do nothing
+			System.out.println("Square has already been targeted");
 		}
 	}
+	
 }

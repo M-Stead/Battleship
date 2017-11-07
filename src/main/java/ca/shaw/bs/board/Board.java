@@ -9,7 +9,7 @@ public class Board {
 		constructBoard(BoardLetters.values().length);
 	}
 	
-	public void constructBoard(int boardSize)
+	protected void constructBoard(int boardSize)
 	{
 		this.board = new IGridSquare[boardSize][boardSize];
 		
@@ -35,14 +35,15 @@ public class Board {
 			System.out.print(i+1);
 			for (int j = 0; j < BoardLetters.values().length; j++)
 				System.out.print("   " + this.board[i][j].getGridValue()); 
-			System.out.println("");
+			System.out.println(" ");
+			System.out.println(" ");
 		}
 	}
 	
 	public void placeShipsOnBoard(String alignment, String column, String row)
 	{
 		int xCoordinate = BoardLetters.valueOf(column).getValue();
-		int yCoordinate = Integer.parseInt(row);
+		int yCoordinate = Integer.parseInt(row) - 1;
 		//Assess coordinates (Are they valid)? 
 		if(validatePlacementCoordinates(alignment, xCoordinate, yCoordinate))
 		{
@@ -70,7 +71,7 @@ public class Board {
 		
 	}
 	
-	public boolean validatePlacementCoordinates(String alignment, int xCoord, int yCoord)
+	protected boolean validatePlacementCoordinates(String alignment, int xCoord, int yCoord)
 	{
 		boolean result = false;
 		if(alignment.equals(AlignmentType.HORIZONTAL.getValue()))
@@ -90,9 +91,58 @@ public class Board {
 		return result;
 	}
 	
-	public IGridSquare[][] getBoard()
+	public String shootAtBoard(String column, String row)
 	{
-		return this.board;
+		
+		int xCoordinate = BoardLetters.valueOf(column).getValue();
+		int yCoordinate = Integer.parseInt(row);
+		String result = "";
+		
+		if(validateShootingCoordinate(xCoordinate,yCoordinate ))
+		{
+			if ( !this.board[xCoordinate][yCoordinate].getSquareHit())
+			{
+				this.board[xCoordinate][yCoordinate].targetSquare();
+				result = this.board[xCoordinate][yCoordinate].getGridResult();
+				System.out.println("HIT - Good Shot");
+			}
+			else
+			{
+				System.out.println("MISS - Please Try Again");
+			}
+		}
+		else
+		{
+			System.out.println("Please enter a validate coordinate to target");
+			result = GridSquareValue.INVALID.name();
+		}
+		
+		return result;
+	}
+	
+	protected boolean validateShootingCoordinate(int x, int y)
+	{
+		boolean isValid = false;
+		
+		if (( (x >= 0) && (x < BoardLetters.values().length)) && ( (y >= 0) && (y < BoardLetters.values().length)))
+			isValid = true;
+		
+		return isValid;
+	}
+	
+	public boolean hasItBeenShot(int x, int y)
+	{
+		boolean hasItBeenShot = false;
+		
+		if (( (x >= 0) && (x < BoardLetters.values().length)) && ( (y >= 0) && (y < BoardLetters.values().length)))
+			hasItBeenShot = true;
+		
+		return hasItBeenShot;
+	}
+	
+	protected IGridSquare[][] getBoard()
+	{
+		return board;
 	}
 
 }
