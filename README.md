@@ -6,10 +6,9 @@ Console Application that allows two users to play battleship
 2. Install Java 8 and Gradle
 3. Run following command to build project: `gradlew build`
 4. To run the game one of two ways can be followed:
-** Type	`gradlew run`
+--1.Type	`gradlew run`
 	or
-** navigate to *LocalFolder/build/libs*
-** Type `java -jar Battleship.jar`
+--2. navigate to *LocalFolder/build/libs* and Type `java -jar Battleship.jar`
 	
 
 ## Requirements:
