@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.Scanner;
 
 import ca.shaw.bs.board.AlignmentType;
 import ca.shaw.bs.board.Board;
@@ -80,14 +79,13 @@ public class Player {
 	{
 		String column = "";
 		String row = "";
-		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println(COMMAND_SEPERATOR);
 		System.out.println("ATTACK - PLAYER " + this.id);
-		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println(COMMAND_SEPERATOR);
 		board.printBoard();
 		//Prompt user for attack coordinates
+		System.out.println(COMMAND_SEPERATOR);
 		System.out.println("Player " + this.id + "Please enter your attack coordinates <Number (Row)> <Letter (Column)>");
-				
-		
 	
 		String line;
 		if((line = reader.readLine()) != null)
@@ -97,13 +95,11 @@ public class Player {
 			row = params[1];
 		}
 	
-		
 		//Shoot and check the result
 		if(this.board.shootAtBoard(row, column).equals(GridSquareValue.HIT.name()))
 		{
 			this.hitsLeft--;
 		}
-	
 
 	}
 	

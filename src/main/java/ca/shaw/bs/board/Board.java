@@ -91,23 +91,21 @@ public class Board {
 		return result;
 	}
 	
-	public String shootAtBoard(String column, String row)
+	public  String shootAtBoard(String column, String row)
 	{
 		
 		int xCoordinate = BoardLetters.valueOf(column).getValue();
 		int yCoordinate = Integer.parseInt(row);
 		String result = "";
 		
-		if(validateShootingCoordinate(xCoordinate,yCoordinate ))
+		if ( validateShootingCoordinate(xCoordinate,yCoordinate ))
 		{
 			if ( !this.board[xCoordinate][yCoordinate].getSquareHit())
 			{
 				this.board[xCoordinate][yCoordinate].targetSquare();
 				result = this.board[xCoordinate][yCoordinate].getGridResult();
 				System.out.println("HIT - Good Shot");
-			}
-			else
-			{
+			}else{
 				System.out.println("MISS - Please Try Again");
 			}
 		}
@@ -134,7 +132,7 @@ public class Board {
 	{
 		boolean hasItBeenShot = false;
 		
-		if (( (x >= 0) && (x < BoardLetters.values().length)) && ( (y >= 0) && (y < BoardLetters.values().length)))
+		if (((x >= 0) && (x < BoardLetters.values().length)) && ( (y >= 0) && (y < BoardLetters.values().length)))
 			hasItBeenShot = true;
 		
 		return hasItBeenShot;

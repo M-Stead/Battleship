@@ -26,14 +26,11 @@ public class WaterSquare implements IGridSquare {
 	@Override
 	public void targetSquare() {
 		//if this square hasn't been targeted before then set it to a miss
-		if(!this.squareHit)
-		{
+		if(!this.squareHit){
 			this.gridValue = GridSquareValue.MISS.getValue();
 			this.squareHit = true;
 			this.gridResult = GridSquareValue.MISS.name();
-		}
-		else
-		{
+		}else{
 			System.out.println("Square has already been targeted");
 		}
 	}

@@ -1,7 +1,16 @@
 # Battleship
 Console Application that allows two users to play battleship
 
-This application allows users to do the following things:
+## Getting Started
+1. Clone this Repo
+2. Install Java 8 and Gradle
+3. Run following command to build project: `gradlew build`
+4. To run the game one of two ways can be followed:
+** Type	`gradlew run`
+	or
+** navigate to *LocalFolder/build/libs*
+** Type `java -jar Battleship.jar`
+	
 
 ## Requirements:
 - The battleship board is 8 x 8 in dimension (See below):
