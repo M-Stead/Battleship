@@ -5,15 +5,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
+
 import ca.shaw.bs.board.AlignmentType;
 import ca.shaw.bs.board.Board;
 import ca.shaw.bs.board.grid.GridSquareValue;
+
 
 public class Player {
 	
 	private String id; 
 	private Board board;
-	private BufferedReader reader;
+	private BufferedReader reader = null;
 	private int hitsLeft = 3;
 	private static final String COMMAND_SEPERATOR = "-----------------------------------------------------------------------------------";
 	
@@ -26,6 +28,16 @@ public class Player {
 	public String getId() {
 		return id;
 	}
+	
+	public void setBufferedReader(BufferedReader reader)
+	{
+		this.reader = reader;
+	}
+	
+	
+    public BufferedReader bufferedReader() throws UnsupportedEncodingException {
+        return new BufferedReader(new InputStreamReader(System.in, "UTF8"));
+    }
 
 	public void placeShip() throws IOException
 	{
@@ -102,7 +114,8 @@ public class Player {
 	
 	public void opponentHit()
 	{
-		hitsLeft--;
+		if(hitsLeft > 0)
+			hitsLeft--;
 	}
 	
 	private void promptBuilder(String message)

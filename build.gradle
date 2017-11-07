@@ -5,17 +5,31 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * user guide available at https://docs.gradle.org/4.3/userguide/tutorial_java_projects.html
  */
+ 
+ buildscript {
+ 	ext{
+ 		springBootVersion = '1.5.2.RELEASE'
+	}
+	repositories{
+	mavenCentral()
+	}
+	dependencies{
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+	}
 
-// Apply the java plugin to add support for Java
+// Apply the java plugin to add support for Java and run console app
 apply plugin: 'java'
-
-// Apply the application plugin to add support for building an application
 apply plugin: 'application'
 
-// Apply plugin for code quality analysis and test coverage
+// Apply plugins for code quality analysis and test coverage
 apply plugin: 'findbugs'
 apply plugin: 'jacoco'
 
+// Apply Spring for IoC
+apply plugin: 'org.springframework.boot'
+
+apply plugin: "eclipse"
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -77,6 +91,8 @@ dependencies {
     
     //Use Mockito
     testCompile 'org.mockito:mockito-core:2.11.0'
+    
+   
 }
 
 run{

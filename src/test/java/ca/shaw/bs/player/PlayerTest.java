@@ -30,6 +30,15 @@ public class PlayerTest {
 		assertFalse(player.validAlignmentType("D"));
 		assertFalse(player.validAlignmentType("U"));
 	}
+	
+	@Test
+	public void isDead_Decrement()
+	{
+		for(int i=0 ;i <3;i++)
+			player.opponentHit();
+		
+		assertTrue(player.isDead());
+	}
 
 	
 }

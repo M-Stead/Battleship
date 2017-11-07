@@ -4,7 +4,7 @@ public class ShipSquare implements IGridSquare {
 
 	private String gridValue = GridSquareValue.WATER.getValue();
 	private boolean squareHit = false;
-	private String gridResult = GridSquareValue.MISS.name();
+	private String gridResult = GridSquareValue.WATER.name();
 	
 	@Override
 	public String getGridValue() {

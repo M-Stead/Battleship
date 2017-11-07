@@ -69,6 +69,7 @@ public class Board {
 			else
 			{
 				//Invalid
+				System.out.println("Invalid Alignment Type passed in for ship placement. Ship not placed");
 			}
 		}
 		else
@@ -93,7 +94,7 @@ public class Board {
 		}
 		else
 		{
-			
+			System.out.println("Invalid Alignment Type passed in for ship placement. Ship not placed");
 		}
 		return result;
 	}

@@ -19,6 +19,7 @@ import org.mockito.Mock;
 import ca.shaw.bs.board.grid.IGridSquare;
 import ca.shaw.bs.board.grid.ShipSquare;
 import ca.shaw.bs.board.grid.WaterSquare;
+import ca.shaw.bs.board.grid.WaterSquareTest;
 
 
 public class BoardTest {
@@ -30,7 +31,7 @@ public class BoardTest {
 	@Before
 	public void setUp() throws Exception {
 		 testBoard = new Board();
-		 testBoardMock = mock(Board.class);
+		 //testBoardMock = mock(Board.class);
 	}
 
 	@Test
