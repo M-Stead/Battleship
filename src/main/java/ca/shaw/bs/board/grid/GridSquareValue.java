@@ -1,8 +1,6 @@
-package ca.shaw.bs.board;
+package ca.shaw.bs.board.grid;
 
 public enum GridSquareValue {
-
-	
 	    INVALID("I"),
 		WATER("~"),
 	    BOAT("B"),

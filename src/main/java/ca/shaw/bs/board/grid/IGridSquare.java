@@ -1,4 +1,4 @@
-package ca.shaw.bs.board;
+package ca.shaw.bs.board.grid;
 
 public interface IGridSquare {
 	

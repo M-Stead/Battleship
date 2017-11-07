@@ -1,7 +1,12 @@
 package ca.shaw.bs.board;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -9,14 +14,23 @@ import java.io.UnsupportedEncodingException;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+
+import ca.shaw.bs.board.grid.IGridSquare;
+import ca.shaw.bs.board.grid.ShipSquare;
+import ca.shaw.bs.board.grid.WaterSquare;
 
 
 public class BoardTest {
 
 	Board testBoard;
+	@Mock
+	Board testBoardMock;
+	
 	@Before
 	public void setUp() throws Exception {
 		 testBoard = new Board();
+		 testBoardMock = mock(Board.class);
 	}
 
 	@Test
@@ -63,9 +77,9 @@ public class BoardTest {
 	{
 		testBoard.placeShipsOnBoard("V", "A", "2");
 		IGridSquare[][] board = testBoard.getBoard();
-		assertThat (board[0][2], instanceOf(WaterSquare.class));
-		assertThat (board[1][2], instanceOf(WaterSquare.class));
-		assertThat (board[2][2], instanceOf(WaterSquare.class));
+		assertThat (board[1][0], instanceOf(ShipSquare.class));
+		assertThat (board[2][0], instanceOf(ShipSquare.class));
+		assertThat (board[3][0], instanceOf(ShipSquare.class));
 		assertThat (board[0][5], instanceOf(WaterSquare.class));
 		assertThat (board[1][4], instanceOf(WaterSquare.class));
 	}
@@ -75,9 +89,9 @@ public class BoardTest {
 	{
 		testBoard.placeShipsOnBoard("H", "A", "2");
 		IGridSquare[][] board = testBoard.getBoard();
-		assertThat (board[0][2], instanceOf(ShipSquare.class));
-		assertThat (board[0][3], instanceOf(ShipSquare.class));
-		assertThat (board[0][4], instanceOf(WaterSquare.class));
+		assertThat (board[1][0], instanceOf(ShipSquare.class));
+		assertThat (board[1][1], instanceOf(ShipSquare.class));
+		assertThat (board[1][2], instanceOf(ShipSquare.class));
 		assertThat (board[0][5], instanceOf(WaterSquare.class));
 		assertThat (board[1][4], instanceOf(WaterSquare.class));
 	}
@@ -119,7 +133,5 @@ public class BoardTest {
 		assertFalse (this.testBoard.validateShootingCoordinate(-1,0));
 	}
 	
-	@Test void shootAtBoard_NotShotAtBefore() {
-		this.testBoard.shootAtBoard("1", "A");
-	}
+	
 }

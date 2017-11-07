@@ -25,10 +25,10 @@ public class Game
 		//Prompt players for Shots
 		while((!players[0].isDead()) && (!players[1].isDead()))
 		{
-			players[0].attack();
+			players[0].attack(players[1]);
 			
-			if(!players[0].isDead())
-				players[1].attack();
+			if(!players[1].isDead())
+				players[1].attack(players[0]);
 		}
 		
 		//Once the boat has been sunk then end game with message 

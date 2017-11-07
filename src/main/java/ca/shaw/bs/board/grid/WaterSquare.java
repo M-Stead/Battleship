@@ -1,10 +1,10 @@
-package ca.shaw.bs.board;
+package ca.shaw.bs.board.grid;
 
-public class ShipSquare implements IGridSquare {
+public class WaterSquare implements IGridSquare {
 
-	private String gridValue = GridSquareValue.BOAT.getValue();
+	private String gridValue = GridSquareValue.WATER.getValue();
 	private boolean squareHit = false;
-	private String gridResult = GridSquareValue.MISS.name();
+	private String gridResult = GridSquareValue.WATER.name();
 	
 	@Override
 	public String getGridValue() {
@@ -12,7 +12,7 @@ public class ShipSquare implements IGridSquare {
 	}
 	
 	@Override
-	public String getGridResult(){
+	public String getGridResult() {
 		return this.gridResult;
 	}
 	
@@ -25,16 +25,12 @@ public class ShipSquare implements IGridSquare {
 	@Override
 	public void targetSquare() {
 		//if this square hasn't been targeted before then set it to a miss
-		if(!squareHit)
-		{
-			this.gridValue = GridSquareValue.HIT.getValue();
-			this.gridResult = GridSquareValue.HIT.name();
+		if(!squareHit){
+			this.gridValue = GridSquareValue.MISS.getValue();
+			this.gridResult = GridSquareValue.MISS.name();
 			this.squareHit = true;
-		}
-		else
-		{
+		}else{
 			System.out.println("Square has already been targeted");
 		}
 	}
-	
 }

@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 
 import ca.shaw.bs.board.AlignmentType;
 import ca.shaw.bs.board.Board;
-import ca.shaw.bs.board.GridSquareValue;
+import ca.shaw.bs.board.grid.GridSquareValue;
 
 public class Player {
 	
@@ -27,79 +27,57 @@ public class Player {
 		return id;
 	}
 
-	
 	public void placeShip() throws IOException
 	{
 		String alignment = "";
 		boolean validAlignment = false;
 		String column = "";
 		String row = "";
-		System.out.println(COMMAND_SEPERATOR);
-		System.out.println("STARTING GAME - PLAYER " + this.id);
-		System.out.println(COMMAND_SEPERATOR);
-		this.board.printBoard();
-		System.out.println(COMMAND_SEPERATOR);
-		System.out.println("PLAYER " + this.id + "- Please place your ship ");
-		//Prompt User for valid alignment input
+		
+		promptBuilder("STARTING GAME - PLAYER " + this.id);
+		board.printBoard();
+		promptBuilder("PLAYER " + this.id + "- Please place your ship ");
 
-		while(!validAlignment)
-		{
-			//Prompt user for command line input
-			System.out.println(COMMAND_SEPERATOR);
-			System.out.println("Please enter how you would like to align your ship: Vertical (V), Horizontal (H)");
+		//Prompt User for valid alignment input
+		while(!validAlignment){
+			promptBuilder("Please enter how you would like to align your ship: Vertical (V), Horizontal (H)");
 			
-			
-				String readAlignment;
-				if ((readAlignment = this.reader.readLine()) != null)
-				{
-					alignment = readAlignment;
-				}
-			
-				
-			validAlignment = validAlignmentType(alignment);
+			if ((alignment = this.reader.readLine()) != null)		
+				validAlignment = validAlignmentType(alignment);
 		}
-		System.out.println(COMMAND_SEPERATOR);
-		System.out.println("Please enter coordinate for your ship to be placed: <Number (Row)> <Letter (Column)>");
-		System.out.println(COMMAND_SEPERATOR);
+		promptBuilder("Please enter coordinate for your ship to be placed: <Letter (Column)> <Number (Row)>");
 		
 		String line;
-		if((line = reader.readLine()) != null)
-		{
+		if((line = reader.readLine()) != null){
 			String[] params = line.split(" ");
 		    column = params[0];
 			row = params[1];
 		}
-		
-					
-		board.placeShipsOnBoard(alignment, row, column);
+				
+		board.placeShipsOnBoard(alignment, column, row);
 		board.printBoard();
 	}
 	
-	public void attack() throws IOException
+	public void attack(Player opponent) throws IOException
 	{
 		String column = "";
 		String row = "";
-		System.out.println(COMMAND_SEPERATOR);
-		System.out.println("ATTACK - PLAYER " + this.id);
-		System.out.println(COMMAND_SEPERATOR);
-		board.printBoard();
+		promptBuilder("ATTACK - PLAYER " + this.id);
+
+		opponent.board.printBoard();
 		//Prompt user for attack coordinates
-		System.out.println(COMMAND_SEPERATOR);
-		System.out.println("Player " + this.id + "Please enter your attack coordinates <Number (Row)> <Letter (Column)>");
+		promptBuilder("Player " + this.id + " Please enter your attack coordinates <Letter (Column)> <Number (Row)> ");
 	
 		String line;
-		if((line = reader.readLine()) != null)
-		{
+		if((line = reader.readLine()) != null){
 			String[] params = line.split(" ");
 		    column = params[0];
 			row = params[1];
 		}
 	
 		//Shoot and check the result
-		if(this.board.shootAtBoard(row, column).equals(GridSquareValue.HIT.name()))
-		{
-			this.hitsLeft--;
-		}
+		if(opponent.board.shootAtBoard(column, row).equals(GridSquareValue.HIT.name()))
+			opponent.opponentHit();
 
 	}
 	
@@ -116,10 +94,22 @@ public class Player {
 	public boolean isDead() {
 		boolean isDead = false;
 		
-		if(this.hitsLeft == 0)
+		if(hitsLeft == 0)
 			isDead = true;
 		
 		return isDead;
+	}
+	
+	public void opponentHit()
+	{
+		hitsLeft--;
+	}
+	
+	private void promptBuilder(String message)
+	{
+		System.out.println(COMMAND_SEPERATOR);
+		System.out.println(message);
+		System.out.println(COMMAND_SEPERATOR);
 	}
 
 }

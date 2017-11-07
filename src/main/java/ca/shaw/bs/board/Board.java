@@ -1,9 +1,16 @@
 package ca.shaw.bs.board;
 
+import ca.shaw.bs.board.grid.GridSquareValue;
+import ca.shaw.bs.board.grid.IGridSquare;
+import ca.shaw.bs.board.grid.ShipSquare;
+import ca.shaw.bs.board.grid.WaterSquare;
+
 public class Board {
 	
 	private IGridSquare[][] board;
 	private int shipSize = 3;
+	private static final String MESSAGE_SEPERATOR = "-----------------------------------------------------------------------------------";
+
 	
 	public Board() {
 		constructBoard(BoardLetters.values().length);
@@ -42,8 +49,8 @@ public class Board {
 	
 	public void placeShipsOnBoard(String alignment, String column, String row)
 	{
-		int xCoordinate = BoardLetters.valueOf(column).getValue();
-		int yCoordinate = Integer.parseInt(row) - 1;
+		int yCoordinate = BoardLetters.valueOf(column).getValue();
+		int xCoordinate = Integer.parseInt(row) - 1;
 		//Assess coordinates (Are they valid)? 
 		if(validatePlacementCoordinates(alignment, xCoordinate, yCoordinate))
 		{
@@ -93,9 +100,8 @@ public class Board {
 	
 	public  String shootAtBoard(String column, String row)
 	{
-		
-		int xCoordinate = BoardLetters.valueOf(column).getValue();
-		int yCoordinate = Integer.parseInt(row);
+		int yCoordinate = BoardLetters.valueOf(column).getValue();
+		int xCoordinate = Integer.parseInt(row) - 1;
 		String result = "";
 		
 		if ( validateShootingCoordinate(xCoordinate,yCoordinate ))
@@ -104,13 +110,16 @@ public class Board {
 			{
 				this.board[xCoordinate][yCoordinate].targetSquare();
 				result = this.board[xCoordinate][yCoordinate].getGridResult();
+				System.out.println(MESSAGE_SEPERATOR);
 				System.out.println("HIT - Good Shot");
 			}else{
+				System.out.println(MESSAGE_SEPERATOR);
 				System.out.println("MISS - Please Try Again");
 			}
 		}
 		else
 		{
+			System.out.println(MESSAGE_SEPERATOR);
 			System.out.println("Please enter a validate coordinate to target");
 			result = GridSquareValue.INVALID.name();
 		}
@@ -128,15 +137,6 @@ public class Board {
 		return isValid;
 	}
 	
-	public boolean hasItBeenShot(int x, int y)
-	{
-		boolean hasItBeenShot = false;
-		
-		if (((x >= 0) && (x < BoardLetters.values().length)) && ( (y >= 0) && (y < BoardLetters.values().length)))
-			hasItBeenShot = true;
-		
-		return hasItBeenShot;
-	}
 	
 	protected IGridSquare[][] getBoard()
 	{
