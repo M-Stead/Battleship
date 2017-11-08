@@ -1,11 +1,7 @@
 package ca.shaw.bs.player;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import java.io.IOException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -13,19 +9,15 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import ca.shaw.bs.board.Board;
-import ca.shaw.bs.board.grid.GridSquareValue;
+
 
 public class PlayerTest {
 
 	Player testPlayer;
-	@Mock
-	Player mockPlayer;
 	
 	@Before
 	public void setUp() throws Exception {
 		 testPlayer = new Player("Test");
-		 mockPlayer = Mockito.mock(Player.class);
 				
 	}
 
@@ -53,7 +45,5 @@ public class PlayerTest {
 		
 		assertTrue(testPlayer.isDead());
 	}
-
-
 	
 }
