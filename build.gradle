@@ -92,7 +92,10 @@ dependencies {
     //Use Mockito
     testCompile 'org.mockito:mockito-core:2.11.0'
     
-   
+   //Use SpringBoot
+   compile 'org.springframework.boot:spring-boot-starter'
+   compile 'org.springframework.boot:spring-boot-starter-logging'
+    
 }
 
 run{

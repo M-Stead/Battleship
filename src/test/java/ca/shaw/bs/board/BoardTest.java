@@ -7,15 +7,19 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 
+import ca.shaw.bs.board.grid.GridSquareValue;
 import ca.shaw.bs.board.grid.IGridSquare;
 import ca.shaw.bs.board.grid.ShipSquare;
 import ca.shaw.bs.board.grid.WaterSquare;
@@ -25,13 +29,16 @@ import ca.shaw.bs.board.grid.WaterSquareTest;
 public class BoardTest {
 
 	Board testBoard;
-	@Mock
-	Board testBoardMock;
+
 	
 	@Before
 	public void setUp() throws Exception {
 		 testBoard = new Board();
-		 //testBoardMock = mock(Board.class);
+	}
+	
+	@After
+	public void teardown() throws Exception {
+		 testBoard = null;
 	}
 
 	@Test
@@ -135,4 +142,21 @@ public class BoardTest {
 	}
 	
 	
+	@Test
+	public void shootAtBoard_invalidShot()
+	{
+		Board spyBoard = Mockito.spy(testBoard);
+		when((spyBoard).validateShootingCoordinate(0, 1)).thenReturn(false);
+		
+		assertEquals (GridSquareValue.INVALID.name(), spyBoard.shootAtBoard("B", "1"));
+	}
+	
+	@Test
+	public void shootAtBoard_validShot()
+	{
+		Board spyBoard = Mockito.spy(testBoard);
+		when((spyBoard).validateShootingCoordinate(0, 1)).thenReturn(true);
+		assertEquals (GridSquareValue.MISS.name(), spyBoard.shootAtBoard("B", "1"));
+		
+	}
 }

@@ -4,14 +4,17 @@ package ca.shaw.bs.game;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import ca.shaw.bs.player.Player;
 
 public class Game
 {
+	
 	 private Player[] players;
 
 	    public Game() throws UnsupportedEncodingException {
-	        this.players = new Player[]{new Player("One"), new Player("Two")};
+	        this.players = new Player[]{new Player("1"), new Player("2")};
 	    }
 
 	public void play() throws IOException {

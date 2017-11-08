@@ -1,18 +1,32 @@
 package ca.shaw.bs.player;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.io.IOException;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+
+import ca.shaw.bs.board.Board;
+import ca.shaw.bs.board.grid.GridSquareValue;
 
 public class PlayerTest {
 
-	Player player;
+	Player testPlayer;
+	@Mock
+	Player mockPlayer;
 	
 	@Before
 	public void setUp() throws Exception {
-		 player = new Player("Test");
+		 testPlayer = new Player("Test");
+		 mockPlayer = Mockito.mock(Player.class);
+				
 	}
 
 	@After
@@ -21,24 +35,25 @@ public class PlayerTest {
 
 	@Test
 	public void validAlignmentType_ValidAlignmentType() {
-		assertTrue(player.validAlignmentType("H"));
-		assertTrue(player.validAlignmentType("V"));
+		assertTrue(testPlayer.validAlignmentType("H"));
+		assertTrue(testPlayer.validAlignmentType("V"));
 	}
 
 	@Test
 	public void validAlignmentType_InValidAlignmentType() {
-		assertFalse(player.validAlignmentType("D"));
-		assertFalse(player.validAlignmentType("U"));
+		assertFalse(testPlayer.validAlignmentType("D"));
+		assertFalse(testPlayer.validAlignmentType("U"));
 	}
 	
 	@Test
 	public void isDead_Decrement()
 	{
 		for(int i=0 ;i <3;i++)
-			player.opponentHit();
+			testPlayer.opponentHit();
 		
-		assertTrue(player.isDead());
+		assertTrue(testPlayer.isDead());
 	}
+
 
 	
 }

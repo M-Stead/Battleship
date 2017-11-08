@@ -66,14 +66,12 @@ public class Board {
 				for(int j= yCoordinate; j < (yCoordinate+shipSize);j++)
 					board[xCoordinate][j] = new ShipSquare();
 			}
-			else
-			{
+			else{
 				//Invalid
 				System.out.println("Invalid Alignment Type passed in for ship placement. Ship not placed");
 			}
 		}
-		else
-		{
+		else{
 			System.out.println("Invalid Coordinates passed in for ship placement. Ship not placed");
 		}
 		
@@ -107,16 +105,15 @@ public class Board {
 		
 		if ( validateShootingCoordinate(xCoordinate,yCoordinate ))
 		{
+			System.out.println(MESSAGE_SEPERATOR);
 			if ( !this.board[xCoordinate][yCoordinate].getSquareHit())
 			{
-				this.board[xCoordinate][yCoordinate].targetSquare();
-				result = this.board[xCoordinate][yCoordinate].getGridResult();
-				System.out.println(MESSAGE_SEPERATOR);
+				this.board[xCoordinate][yCoordinate].targetSquare();				
 				System.out.println("HIT - Good Shot");
 			}else{
-				System.out.println(MESSAGE_SEPERATOR);
 				System.out.println("MISS - Please Try Again");
 			}
+			result = this.board[xCoordinate][yCoordinate].getGridResult();
 		}
 		else
 		{

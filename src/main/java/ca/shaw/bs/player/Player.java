@@ -1,50 +1,52 @@
 package ca.shaw.bs.player;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import ca.shaw.bs.board.AlignmentType;
 import ca.shaw.bs.board.Board;
 import ca.shaw.bs.board.grid.GridSquareValue;
 
-
+@Configuration
 public class Player {
 	
-	private String id; 
+	private String id = "0"; 
 	private Board board;
-	private BufferedReader reader = null;
 	private int hitsLeft = 3;
-	private static final String COMMAND_SEPERATOR = "-----------------------------------------------------------------------------------";
+	private BufferedReader reader;
+	
+	private static String COMMAND_SEPERATOR = "--------------------------------------------------------------------------";
+	
+
 	
 	public Player(String id) throws UnsupportedEncodingException {
 		this.id = id;
 		this.board = new Board();
-		this.reader = new BufferedReader(new InputStreamReader(System.in, "UTF8"));
+		this.reader = reader();
+
 	}
+	
+	@Bean
+    protected BufferedReader reader() throws UnsupportedEncodingException {
+        return new BufferedReader(new InputStreamReader(System.in, "UTF8"));
+    }
 
 	public String getId() {
 		return id;
 	}
 	
-	public void setBufferedReader(BufferedReader reader)
-	{
-		this.reader = reader;
-	}
-	
-	
-    public BufferedReader bufferedReader() throws UnsupportedEncodingException {
-        return new BufferedReader(new InputStreamReader(System.in, "UTF8"));
-    }
 
 	public void placeShip() throws IOException
 	{
-		String alignment = "";
+		String alignment = null;
 		boolean validAlignment = false;
-		String column = "";
-		String row = "";
+		String[] params = null;
 		
 		promptBuilder("STARTING GAME - PLAYER " + this.id);
 		board.printBoard();
@@ -52,46 +54,47 @@ public class Player {
 
 		//Prompt User for valid alignment input
 		while(!validAlignment){
-			promptBuilder("Please enter how you would like to align your ship: Vertical (V), Horizontal (H)");
-			
+			promptBuilder("Please enter how you would like to align your ship: Vertical (V), Horizontal (H)");		
+		
 			if ((alignment = this.reader.readLine()) != null)		
 				validAlignment = validAlignmentType(alignment);
 		}
-		promptBuilder("Please enter coordinate for your ship to be placed: <Letter (Column)> <Number (Row)>");
 		
-		String line;
-		if((line = reader.readLine()) != null){
-			String[] params = line.split(" ");
-		    column = params[0];
-			row = params[1];
-		}
+		params = grabCommandLineCoordinates();
 				
-		board.placeShipsOnBoard(alignment, column, row);
+		board.placeShipsOnBoard(alignment,  params[0], params[1]);
 		board.printBoard();
 	}
 	
 	public void attack(Player opponent) throws IOException
 	{
-		String column = "";
-		String row = "";
+		String[] params = null;
 		promptBuilder("ATTACK - PLAYER " + this.id);
 
 		opponent.board.printBoard();
-		//Prompt user for attack coordinates
-		promptBuilder("Player " + this.id + " Please enter your attack coordinates <Letter (Column)> <Number (Row)> ");
+
+		promptBuilder("Player " + this.id + " Ready to Attack ");
 	
-		String line;
-		if((line = reader.readLine()) != null){
-			String[] params = line.split(" ");
-		    column = params[0];
-			row = params[1];
-		}
+		params = grabCommandLineCoordinates();
 	
 		//Shoot and check the result
-		if(opponent.board.shootAtBoard(column, row).equals(GridSquareValue.HIT.name()))
+		if(opponent.getBoard().shootAtBoard(params[0], params[1]).equals(GridSquareValue.HIT.name()))
 			opponent.opponentHit();
 
 	}
+	
+	protected String[] grabCommandLineCoordinates() throws IOException
+	{
+		promptBuilder(" Please enter your attack coordinates <Letter (Column)> <Number (Row)> ");
+		String[] params = null;
+		String line = "";
+		if((line = reader.readLine()) != null){
+			params = line.split(" ");
+		}
+	
+		return params;
+	}
+	
 	
 	public boolean validAlignmentType(String align)
 	{
@@ -116,6 +119,11 @@ public class Player {
 	{
 		if(hitsLeft > 0)
 			hitsLeft--;
+	}
+	
+	public Board getBoard()
+	{
+		return this.board;
 	}
 	
 	private void promptBuilder(String message)
